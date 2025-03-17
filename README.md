@@ -3,7 +3,7 @@
 </p>
 
 <h1>osTicket Help Desk Deployment on Azure Virtual Machine</h1>
-This tutorial will outline the prerequisites and installation steps of the open-source help desk ticketing system osTicket. The setup includes configuring IIS (Internet Information Services), PHP (Hypertext PreProcessor), MySQL (My Structured Query Language), and osTicket installation. Upon completion of this tutorial we will have a working ticketing system and an understanding of each part of ticketing systems, including: ticket properties, SLAs (service level agreements), departments, permissions, and users.  <br />
+This tutorial will outline the prerequisites and installation steps of the open-source help desk ticketing system osTicket. The setup includes configuring IIS, PHP, MySQL, and osTicket installation. Upon completion of this tutorial we will have a working ticketing system and an understanding of each part of ticketing systems, including: ticket properties, SLAs (service level agreements), departments, permissions, and users.  <br />
 
 
 <h2>Environments and Technologies Used</h2>
