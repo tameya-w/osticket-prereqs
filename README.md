@@ -3,24 +3,23 @@
 </p>
 
 <h1>osTicket Help Desk Deployment on Azure Virtual Machine</h1>
-This tutorial will outline the prerequisites and installation steps of the open-source help desk ticketing system osTicket. The setup includes configuring IIS, PHP, MySQL, and osTicket installation. Upon completion of this tutorial we will have a working ticketing system and an understanding of each part of ticketing systems, including: ticket properties, SLAs (service level agreements), departments, permissions, and users.  <br />
+This tutorial will outline the prerequisites and installation steps of the open-source help desk ticketing system osTicket. The setup includes configuring IIS, PHP, MySQL, and osTicket installation. Upon completion of this tutorial we will have a working ticketing system and an understanding of each part of ticketing systems, including: ticket properties, SLAs, departments, permissions, and users.  <br />
 
 
 <h2>Environments and Technologies Used</h2>
 
-- Microsoft Azure (Virtual Machines/Computer)
-- Remote Desktop
-- Internet Information Services (IIS)
+- **Microsoft Azure** (Virtual Machines) - Cloud platform used to create and manage the virtual machine.
+- **Remote Desktop** - Used to connect to the virtual machine remotely.
+- **Internet Information Services (IIS)** - A web server required to host osTicket.
 
 <h2>Operating Systems Used </h2>
 
-- Windows 10</b> (21H2)
+- Windows 10</b> 
 
-<h2>Prerequisites</h2>
-
-- Microsoft Azure account
-- Windows 10 Virtual Machine (4 vCPUs)
-- Remote Desktop access to the VM
+## Prerequisites
+- **Microsoft Azure account** - Required to create and manage virtual machines.
+- **Windows 10 Virtual Machine (4 vCPUs)** - The VM where osTicket will be installed.
+- **Remote Desktop access to the VM** - Needed to configure and manage the installation process.
 
 ## Step 1: Create a Virtual Machine in Azure
 1. **Create a Windows 10 VM** with the following settings:
@@ -28,7 +27,7 @@ This tutorial will outline the prerequisites and installation steps of the open-
    - **vCPUs:** 4
    - **Username:** labuser
    - **Password:** osTicketPassword1!
-
+- This will be the server environment where osTicket will be installed.
 ![Screenshot 2025-03-13 152442](https://github.com/user-attachments/assets/99297f09-7b1c-4332-a8f4-9e308c74ffd3) ![Screenshot 2025-03-13 153714](https://github.com/user-attachments/assets/5d6784aa-fbb6-4ccf-a566-4a7e88e6476b)
 
 
@@ -53,25 +52,24 @@ Copy your newly created Virtual Machine's public IP Address and paste it into th
 
 ## Step 3: Install IIS and Enable CGI
 1. Open **Windows Features** and enable:
-   - **Internet Information Services (IIS)**
-   - **World Wide Web Services**
-   - **Application Development Features → [X] CGI**
+   - **Internet Information Services (IIS)** - Required to host the osTicket application.
+   - **World Wide Web Services** - Ensures web access capabilities.
+   - **Application Development Features → [X] CGI** - Allows PHP to run on IIS.
 
 ![Screenshot 2025-03-17 124055](https://github.com/user-attachments/assets/6767cd5d-1560-4062-9d7b-4bf53be7376c)
 
 ## Step 4: Install Required Components
 From the `osTicket-Installation-Files` folder:
-1. Install **PHP Manager for IIS** (`PHPManagerForIIS_V1.5.0.msi`).
-
+1. Install **PHP Manager for IIS** (`PHPManagerForIIS_V1.5.0.msi`) - Manages PHP settings in IIS.
 ![Screenshot 2025-03-17 124640](https://github.com/user-attachments/assets/ea267a4c-f931-4a07-a6af-e72e3385bc3c)
 
-2. Install **IIS Rewrite Module** (`rewrite_amd64_en-US.msi`).
+2. Install **IIS Rewrite Module** (`rewrite_amd64_en-US.msi`) - Enables URL rewriting in IIS.
 
 ![Screenshot 2025-03-17 125312](https://github.com/user-attachments/assets/f9cc4183-27aa-43e8-a9d9-4d88319022a9)
 
 
 ## Step 5: Configure PHP
-1. Create the directory `C:\PHP`.
+1. Create the directory `C:\PHP` - This is where PHP files will be stored.
 
 ![Screenshot 2025-03-17 130149](https://github.com/user-attachments/assets/ab9bab03-4e53-411a-b360-0a275e6501ce)
 
@@ -80,12 +78,12 @@ From the `osTicket-Installation-Files` folder:
 
 ![Screenshot 2025-03-17 130920](https://github.com/user-attachments/assets/98a54c87-1619-4d94-bcf1-36ae570886ec)
 
-3. Install **Visual C++ Redistributable** (`VC_redist.x86.exe`).
+3. Install **Visual C++ Redistributable** (`VC_redist.x86.exe`) - Required for running PHP properly.
 
 ![Screenshot 2025-03-17 131216](https://github.com/user-attachments/assets/ba1cc980-0d8e-42ce-b8ba-907749470f9d)
 
 ## Step 6: Install MySQL
-1. Install **MySQL 5.5.62** (`mysql-5.5.62-win32.msi`).
+1. Install **MySQL 5.5.62** (`mysql-5.5.62-win32.msi`) - The database used to store osTicket data.
 2. Select **Typical Setup**.
 
 ![Screenshot 2025-03-17 132328](https://github.com/user-attachments/assets/5bb24818-1052-4438-a2f7-627c2d51f102)
@@ -93,7 +91,7 @@ From the `osTicket-Installation-Files` folder:
 3. Run the **Configuration Wizard**:
    - Choose **Standard Configuration**.
    - Set **Username: root**.
-   - Set **Password: root**.
+   - Set **Password: root** - This will be the admin credentials for MySQL.
 
 ![Screenshot 2025-03-17 133349](https://github.com/user-attachments/assets/2180250d-e4f4-4dbb-ac84-22a601156d5f)
 
@@ -101,13 +99,13 @@ From the `osTicket-Installation-Files` folder:
 
 
 ## Step 7: Configure IIS for PHP
-1. Open **IIS as an Administrator**.
+1. Open **IIS as an Administrator** - Required to modify settings.
 
 ![Screenshot 2025-03-17 134842](https://github.com/user-attachments/assets/0abbb10d-9873-4517-b16b-54df095385ed)
 
 
 2. Register PHP:
-   - Open **PHP Manager** → Select `C:\PHP\php-cgi.exe`.
+   - Open **PHP Manager** → Select `C:\PHP\php-cgi.exe` - Enables PHP processing.
 
 ![Screenshot 2025-03-17 135732](https://github.com/user-attachments/assets/0c6d54bd-41f2-49bf-97e4-596aee607285)
 
@@ -115,7 +113,7 @@ From the `osTicket-Installation-Files` folder:
 
 
 
-3. Restart IIS (**Stop and Start the server**).
+3. Restart IIS (**Stop and Start the server**) - Ensures changes take effect.
 
 ![Screenshot 2025-03-17 140652](https://github.com/user-attachments/assets/bfa2aeb4-405f-4e99-ad1a-277f2b289013)
 
@@ -127,7 +125,7 @@ From the `osTicket-Installation-Files` folder:
 ![Screenshot 2025-03-17 143846](https://github.com/user-attachments/assets/2cee9dbb-e6dc-4e45-9149-13f8dd2cd9c4)
 
 
-2. Copy the `upload` folder to `C:\inetpub\wwwroot`.
+2. Copy the `upload` folder to `C:\inetpub\wwwroot` - This is the web directory for IIS.
 
 ![Screenshot 2025-03-17 144322](https://github.com/user-attachments/assets/7fc1cf38-9c97-47fd-9e9b-acb3c1c59665)
 
@@ -156,14 +154,14 @@ From the `osTicket-Installation-Files` folder:
 2. Open **PHP Manager**.
 3. Click **Enable or Disable an Extension**.
 4. Enable the following:
-   - `php_imap.dll`
-   - `php_intl.dll`
-   - `php_opcache.dll`
+   - `php_imap.dll` - Allows email fetching.
+   - `php_intl.dll` - Enables internationalization support.
+   - `php_opcache.dll` - Improves PHP performance.
 
 ![Screenshot 2025-03-17 154252](https://github.com/user-attachments/assets/39b2c13e-a3f8-425d-a8f2-f8ec05d185c5)
 
 
-5. Refresh the osTicket site.
+5. Refresh the osTicket site to apply changes.
 
 ![Screenshot 2025-03-17 154907](https://github.com/user-attachments/assets/c807b3e8-1734-4d9b-9b7c-2b7d1e8806b7)
 
@@ -178,19 +176,19 @@ From the `osTicket-Installation-Files` folder:
 
 
 2. Set file permissions:
-   - **Disable inheritance → Remove All**
-   - **Assign new permissions:** Everyone → All
+  - **Disable inheritance → Remove All** - Secures the configuration file.
+   - **Assign new permissions:** Everyone → All - Allows osTicket to access the file
 
 ![Screenshot 2025-03-17 161315](https://github.com/user-attachments/assets/4b076a7e-71d6-4ea2-9361-3222dac384ec)
 
 
 ## Step 11: Set Up Database
-1. Install **HeidiSQL**.
+1. Install **HeidiSQL** - A database management tool.
 
 ![Screenshot 2025-03-17 162719](https://github.com/user-attachments/assets/10f59e4d-fa65-4549-92f7-7624688f9a01)
 
 2. Open **HeidiSQL** and create a new session (`root/root`).
-3. Connect to the session and create a database named `osTicket`.
+3. Connect to the session and create a database named `osTicket` - This will store ticketing data.
 
 ![Screenshot 2025-03-17 163117](https://github.com/user-attachments/assets/ae2d5c4b-3d9b-4099-9127-9623ca662686)
 
@@ -217,9 +215,15 @@ From the `osTicket-Installation-Files` folder:
 
 ![Screenshot 2025-03-17 164245](https://github.com/user-attachments/assets/2ddbcb45-726a-4c44-8b54-d08aff7b28a8)
 
-6. End User Portal: `http://localhost/osTicket/`
+6. End User Portal: `http://localhost/osTicket/` - This is where users can submit tickets.
 
 ![Screenshot 2025-03-17 164419](https://github.com/user-attachments/assets/4b5fe8ce-801b-4711-8657-9a542b2fe027)
 
+Congratulations! 🎉 You have successfully deployed osTicket on an Azure Virtual Machine. 
 
+###  What You Learned:
+✔ Setting up a VM in Azure  
+✔ Installing and configuring IIS, PHP, and MySQL  
+✔ Deploying and securing osTicket  
+✔ Configuring ticketing workflows  
 
